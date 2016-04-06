@@ -9,8 +9,9 @@ Voting System
 
 # Authors
 
-* Jose Labra
-
+* Pablo García Escudero
+* Constantino Álvarez
+* Inmaculada Martínez Lobo
 
 
 
