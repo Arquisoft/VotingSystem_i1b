@@ -15,7 +15,16 @@ import java.util.ResourceBundle;
 public class JdbcHelper {
 
 	private static ResourceBundle connectionConfig;
+	private static ResourceBundle queries;
 	private static final String DEFAULT_CONFIG_FILE = "main.resources.database";
+	private static final String QUERIES_FILE = "main.resources.queries";
+	
+	public static ResourceBundle getQueries(){
+		if(queries == null){
+			queries = ResourceBundle.getBundle(QUERIES_FILE);
+		}
+		return queries;
+	}
 	
 	private static ResourceBundle getConnectionConfig(){
 		if(connectionConfig==null){
@@ -40,6 +49,11 @@ public class JdbcHelper {
 		close(c);
 	}
 
+	public static void close(Connection c, Statement st) {
+		close(c);
+		close(st);
+	}
+	
 	public static void close(ResultSet rs, Statement st) {
 		close(rs);
 		close(st);
