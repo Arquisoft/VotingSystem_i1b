@@ -1,4 +1,4 @@
-package es.uniovi.asw;
+package es.uniovi.asw.ejemplo;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
