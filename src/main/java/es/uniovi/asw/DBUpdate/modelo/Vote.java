@@ -1,8 +1,8 @@
 package es.uniovi.asw.DBUpdate.modelo;
 
 public class Vote {
-	public Long id;
-	public String option;
+	private Long id;
+	private String option;
 	
 	public Vote(String option){
 		this.option = option;

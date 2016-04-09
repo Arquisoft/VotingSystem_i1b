@@ -1,13 +1,13 @@
 package es.uniovi.asw.DBUpdate.modelo;
 
 public class Voter {
-	public String nif;
-	public String name;
-	public String email;
-	public Integer electoralBoard;
-	public String password;
-	public boolean hasVoted;
-	public boolean eVoter;
+	private String nif;
+	private String name;
+	private String email;
+	private Integer electoralBoard;
+	private String password;
+	private boolean hasVoted;
+	private boolean eVoter;
 	
 	public Voter(String nif, String name, String email, Integer electoralBoard, String password) {
 		super();
