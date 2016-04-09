@@ -9,9 +9,12 @@ public class Voter {
 	private boolean hasVoted;
 	private boolean eVoter;
 	
-	public Voter(String nif, String name, String email, Integer electoralBoard, String password) {
-		super();
+	public Voter(String nif){
 		this.nif = nif;
+	}
+	
+	public Voter(String nif, String name, String email, Integer electoralBoard, String password) {
+		this(nif);
 		this.name = name;
 		this.email = email;
 		this.electoralBoard = electoralBoard;
