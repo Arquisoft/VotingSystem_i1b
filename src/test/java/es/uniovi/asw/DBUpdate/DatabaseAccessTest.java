@@ -2,66 +2,67 @@ package es.uniovi.asw.DBUpdate;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import es.uniovi.asw.DBUpdate.modelo.Vote;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 
 public class DatabaseAccessTest {
 
 	private DatabaseAccess db = new DatabaseAccessImpl();
-	private Voter v1 = new Voter("TEST1");
-	private Voter v2 = new Voter("TEST2");
-	private Voter v3 = new Voter("TEST3");
-	private Voter v4 = new Voter("TEST4");
+	private static Voter voter1 = new Voter("TEST1");
+	private static Voter voter2 = new Voter("TEST2");
+	private static Voter voter3 = new Voter("TEST3");
+	private Vote vote1 = new Vote("test");
 	private static final String DB_CONFIG_FILE = "test.resources.database";
 
 	@BeforeClass
-	public void setUp() throws SQLException {
+	public static void setUp() throws SQLException {
 		JdbcHelper.loadConnectionConfig(DB_CONFIG_FILE);
 		fillDB();
 	}
 
 	@AfterClass
-	public void restore() throws SQLException {
+	public static void restore() throws SQLException {
 		emptyDB();
 	}
 
-	@Test
-	public void testInsertVote() {
-		fail("Not yet implemented");
+	private static void fillDB() throws SQLException {
+		DatabaseAccessTestHelper.insertVoter(voter1);
+		DatabaseAccessTestHelper.insertVoter(voter2);
+		DatabaseAccessTestHelper.insertVoter(voter3);
 	}
 
-	@Test
-	public void testUpdateHasVoted() {
-		fail("Not yet implemented");
+	private static void emptyDB() throws SQLException {
+		DatabaseAccessTestHelper.deleteVotes();
+		DatabaseAccessTestHelper.deleteVoters();
 	}
-
+	
 	@Test
 	public void findVoter() {
-		fail("Not yet implemented");
+		assertEquals(voter1, db.findVoter(voter1.getNif()));
+	}
+	
+	@Test
+	public void testInsertVote() throws SQLException {
+		db.insertVote(vote1);
+		assertEquals(vote1, DatabaseAccessTestHelper.findOneVote());
 	}
 
 	@Test
-	public void insertEVoter() {
-		fail("Not yet implemented");
+	public void testUpdateHasVoted() throws SQLException {
+		db.updateHasVoted(voter2);
+		assertEquals(voter2, DatabaseAccessTestHelper.findVoter(voter2.getNif()));
 	}
 
-	private void fillDB() throws SQLException {
-		DatabaseMethods.insertVoter(v1);
-		DatabaseMethods.insertVoter(v2);
-		DatabaseMethods.insertVoter(v3);
-		DatabaseMethods.insertVoter(v4);
+	@Test
+	public void insertEVoter() throws SQLException {
+		db.insertEVoter(voter3);
+		assertEquals(voter3, DatabaseAccessTestHelper.findVoter(voter3.getNif()));
 	}
 
-	private void emptyDB() throws SQLException {
-		DatabaseMethods.deleteVotes();
-		DatabaseMethods.deleteVoters();
-	}
 }

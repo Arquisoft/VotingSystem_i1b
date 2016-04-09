@@ -7,6 +7,11 @@ public class Vote {
 	public Vote(String option){
 		this.option = option;
 	}
+	
+	public Vote(Long id, String option){
+		this(option);
+		this.id = id;
+	}
 
 	public String getOption() {
 		return option;
