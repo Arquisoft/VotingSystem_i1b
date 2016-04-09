@@ -9,9 +9,12 @@ public class Voter {
 	private boolean hasVoted;
 	private boolean eVoter;
 	
-	public Voter(String nif, String name, String email, Integer electoralBoard, String password) {
-		super();
+	public Voter(String nif){
 		this.nif = nif;
+	}
+	
+	public Voter(String nif, String name, String email, Integer electoralBoard, String password) {
+		this(nif);
 		this.name = name;
 		this.email = email;
 		this.electoralBoard = electoralBoard;
@@ -25,48 +28,48 @@ public class Voter {
 		this.eVoter = eVoter;
 	}
 	
-	private String getNif() {
+	public String getNif() {
 		return nif;
 	}
-	private void setNif(String nif) {
+	public void setNif(String nif) {
 		this.nif = nif;
 	}
-	private String getName() {
+	public String getName() {
 		return name;
 	}
-	private void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
-	private String getEmail() {
+	public String getEmail() {
 		return email;
 	}
-	private void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
-	private Integer getElectoralBoard() {
+	public Integer getElectoralBoard() {
 		return electoralBoard;
 	}
-	private void setElectoralBoard(Integer electoralBoard) {
+	public void setElectoralBoard(Integer electoralBoard) {
 		this.electoralBoard = electoralBoard;
 	}
-	private String getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	private void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	private boolean getHasVoted() {
+	public boolean getHasVoted() {
 		return hasVoted;
 	}
-	private void setHasVoted(boolean hasVoted) {
+	public void setHasVoted(boolean hasVoted) {
 		this.hasVoted = hasVoted;
 	}
 	
-	private boolean isEVoter() {
+	public boolean isEVoter() {
 		return eVoter;
 	}
 	
-	private void setEVoter(boolean eVoter) {
+	public void setEVoter(boolean eVoter) {
 		this.eVoter = eVoter;
 	}
 	
