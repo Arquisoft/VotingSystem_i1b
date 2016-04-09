@@ -3,6 +3,7 @@ package es.uniovi.asw.DBUpdate;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -50,7 +51,9 @@ public class DatabaseAccessTest {
 	@Test
 	public void testInsertVote() throws SQLException {
 		db.insertVote(vote1);
-		assertEquals(vote1, DatabaseAccessTestHelper.findOneVote());
+		List<Vote> votes = DatabaseAccessTestHelper.findVotes();
+		assertEquals(1, votes.size());
+		assertEquals(vote1.getOption(), votes.get(0).getOption());
 	}
 
 	@Test

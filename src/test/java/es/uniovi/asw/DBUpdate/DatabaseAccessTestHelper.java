@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.uniovi.asw.DBUpdate.modelo.Vote;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
@@ -65,24 +67,26 @@ class DatabaseAccessTestHelper {
 			return voter;
 	}
 
-	public static Vote findOneVote() throws SQLException {
+	public static List<Vote> findVotes() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		List<Vote> votes = new ArrayList<Vote>();
 		Vote vote;
 		
 			con = JdbcHelper.getConnection();
 			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("SELECT_ALL_VOTES"));
 			rs = ps.executeQuery();
 			
-			rs.next();
+			while(rs.next()){
 			vote = new Vote(rs.getLong(1),
 					rs.getString(2));
-			assert !rs.next();
+			votes.add(vote);
+			}
 			
 			JdbcHelper.close(rs, ps, con);
 			
-			return vote;
+			return votes;
 	}
 	
 }
