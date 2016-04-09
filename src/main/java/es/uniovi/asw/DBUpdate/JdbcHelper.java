@@ -30,13 +30,18 @@ public class JdbcHelper {
 	
 	private static Properties getConnectionConfig() {
 		if(connectionConfig==null){
-			connectionConfig = loadProperties(DEFAULT_CONFIG_FILE);
+			setConnectionConfig(DEFAULT_CONFIG_FILE);
 		} 
 		return connectionConfig;
 	}
 	
 	public static void setConnectionConfig(String path) {
 		connectionConfig = loadProperties(path);
+		try {
+			Class.forName(connectionConfig.getProperty("DRIVER"));
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static Properties loadProperties(String path) {
