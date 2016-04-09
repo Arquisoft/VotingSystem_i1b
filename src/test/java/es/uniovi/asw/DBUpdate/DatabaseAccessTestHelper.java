@@ -14,7 +14,7 @@ class DatabaseAccessTestHelper {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
-		ps = con.prepareStatement(JdbcHelper.getQueries().getString("DELETE_VOTES"));
+		ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("DELETE_VOTES"));
 		ps.executeUpdate();
 		JdbcHelper.close(con, ps);
 	}
@@ -23,7 +23,7 @@ class DatabaseAccessTestHelper {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
-		ps = con.prepareStatement(JdbcHelper.getQueries().getString("DELETE_VOTERS"));
+		ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("DELETE_VOTERS"));
 		ps.executeUpdate();
 		JdbcHelper.close(con, ps);
 	}
@@ -32,7 +32,7 @@ class DatabaseAccessTestHelper {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
-		ps = con.prepareStatement(JdbcHelper.getQueries().getString("INSERT_VOTER"));
+		ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("INSERT_VOTER"));
 		ps.setString(1, voter.getNif());
 		ps.executeUpdate();
 		JdbcHelper.close(con, ps);
@@ -46,7 +46,7 @@ class DatabaseAccessTestHelper {
 		Voter voter;
 		
 			con = JdbcHelper.getConnection();
-			ps = con.prepareStatement(JdbcHelper.getQueries().getString("FIND_VOTER_BY_NIF"));
+			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("FIND_VOTER_BY_NIF"));
 			ps.setString(1, nif);
 			rs = ps.executeQuery();
 			
@@ -72,7 +72,7 @@ class DatabaseAccessTestHelper {
 		Vote vote;
 		
 			con = JdbcHelper.getConnection();
-			ps = con.prepareStatement(JdbcHelper.getQueries().getString("SELECT_ALL_VOTES"));
+			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("SELECT_ALL_VOTES"));
 			rs = ps.executeQuery();
 			
 			rs.next();

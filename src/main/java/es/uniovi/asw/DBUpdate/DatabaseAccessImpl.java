@@ -17,7 +17,7 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 		
 		try {
 			con = JdbcHelper.getConnection();
-			ps = con.prepareStatement(JdbcHelper.getQueries().getString("INSERT_VOTE"));
+			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("INSERT_VOTE"));
 			ps.setString(1, vote.getOption());
 			ps.executeUpdate();
 			return vote;
@@ -37,7 +37,7 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 		
 		try{
 			con = JdbcHelper.getConnection();
-			ps = con.prepareStatement(JdbcHelper.getQueries().getString("FIND_VOTER_BY_NIF"));
+			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("FIND_VOTER_BY_NIF"));
 			ps.setString(1, nif);
 			rs = ps.executeQuery();
 			return resultSetToVoter(rs);
@@ -70,7 +70,7 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 		
 		try{
 			con = JdbcHelper.getConnection();
-			ps = con.prepareStatement(JdbcHelper.getQueries().getString("UPDATE_E_VOTER"));
+			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("UPDATE_E_VOTER"));
 			ps.setBoolean(1, voter.isEVoter());
 			ps.setString(2, voter.getNif());
 			ps.executeUpdate();
@@ -90,7 +90,7 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 		
 		try{
 			con = JdbcHelper.getConnection();
-			ps = con.prepareStatement(JdbcHelper.getQueries().getString("UPDATE_HAS_VOTED"));
+			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("UPDATE_HAS_VOTED"));
 			ps.setBoolean(1, voter.getHasVoted());
 			ps.setString(2, voter.getNif());
 			ps.executeUpdate();

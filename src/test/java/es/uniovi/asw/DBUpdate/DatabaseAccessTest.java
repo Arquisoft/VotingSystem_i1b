@@ -18,11 +18,11 @@ public class DatabaseAccessTest {
 	private static Voter voter2 = new Voter("TEST2");
 	private static Voter voter3 = new Voter("TEST3");
 	private Vote vote1 = new Vote("test");
-	private static final String DB_CONFIG_FILE = "test.resources.database";
+	private static final String DB_CONFIG_FILE = "src/test/resources/database.properties";
 
 	@BeforeClass
 	public static void setUp() throws SQLException {
-		JdbcHelper.loadConnectionConfig(DB_CONFIG_FILE);
+		JdbcHelper.setConnectionConfig(DB_CONFIG_FILE);
 		fillDB();
 	}
 
