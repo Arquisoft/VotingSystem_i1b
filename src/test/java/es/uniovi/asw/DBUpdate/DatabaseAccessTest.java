@@ -19,11 +19,10 @@ public class DatabaseAccessTest {
 	private static Voter voter2 = new Voter("TEST2");
 	private static Voter voter3 = new Voter("TEST3");
 	private Vote vote1 = new Vote("test");
-	private static final String DB_CONFIG_FILE = "src/test/resources/database.properties";
 
 	@BeforeClass
 	public static void setUp() throws SQLException {
-		JdbcHelper.setConnectionConfig(DB_CONFIG_FILE);
+		JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
 		fillDB();
 	}
 
@@ -33,14 +32,14 @@ public class DatabaseAccessTest {
 	}
 
 	private static void fillDB() throws SQLException {
-		DatabaseAccessTestHelper.insertVoter(voter1);
-		DatabaseAccessTestHelper.insertVoter(voter2);
-		DatabaseAccessTestHelper.insertVoter(voter3);
+		DatabaseTestHelper.insertVoter(voter1);
+		DatabaseTestHelper.insertVoter(voter2);
+		DatabaseTestHelper.insertVoter(voter3);
 	}
 
 	private static void emptyDB() throws SQLException {
-		DatabaseAccessTestHelper.deleteVotes();
-		DatabaseAccessTestHelper.deleteVoters();
+		DatabaseTestHelper.deleteVotes();
+		DatabaseTestHelper.deleteVoters();
 	}
 	
 	@Test
@@ -51,7 +50,7 @@ public class DatabaseAccessTest {
 	@Test
 	public void testInsertVote() throws SQLException {
 		db.insertVote(vote1);
-		List<Vote> votes = DatabaseAccessTestHelper.findVotes();
+		List<Vote> votes = DatabaseTestHelper.findVotes();
 		assertEquals(1, votes.size());
 		assertEquals(vote1.getOption(), votes.get(0).getOption());
 	}
@@ -59,13 +58,13 @@ public class DatabaseAccessTest {
 	@Test
 	public void testUpdateHasVoted() throws SQLException {
 		db.updateHasVoted(voter2);
-		assertEquals(voter2, DatabaseAccessTestHelper.findVoter(voter2.getNif()));
+		assertEquals(voter2, DatabaseTestHelper.findVoter(voter2.getNif()));
 	}
 
 	@Test
 	public void insertEVoter() throws SQLException {
 		db.insertEVoter(voter3);
-		assertEquals(voter3, DatabaseAccessTestHelper.findVoter(voter3.getNif()));
+		assertEquals(voter3, DatabaseTestHelper.findVoter(voter3.getNif()));
 	}
 
 }

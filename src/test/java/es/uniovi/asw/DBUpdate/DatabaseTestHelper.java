@@ -10,9 +10,11 @@ import java.util.List;
 import es.uniovi.asw.DBUpdate.modelo.Vote;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 
-class DatabaseAccessTestHelper {
+public class DatabaseTestHelper {
 
-	static void deleteVotes() throws SQLException {
+	public static final String DB_CONFIG_FILE = "src/test/resources/database.properties";
+	
+	public static void deleteVotes() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
@@ -21,7 +23,7 @@ class DatabaseAccessTestHelper {
 		JdbcHelper.close(con, ps);
 	}
 
-	static void deleteVoters() throws SQLException {
+	public static void deleteVoters() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
@@ -30,7 +32,7 @@ class DatabaseAccessTestHelper {
 		JdbcHelper.close(con, ps);
 	}
 
-	static Voter insertVoter(Voter voter) throws SQLException {
+	public static Voter insertVoter(Voter voter) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
