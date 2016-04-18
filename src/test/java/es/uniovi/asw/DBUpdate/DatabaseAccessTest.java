@@ -32,9 +32,9 @@ public class DatabaseAccessTest {
 	}
 
 	private static void fillDB() throws SQLException {
-		DatabaseTestHelper.insertVoter(voter1);
-		DatabaseTestHelper.insertVoter(voter2);
-		DatabaseTestHelper.insertVoter(voter3);
+		DatabaseTestHelper.insertVoter(voter1.getNif());
+		DatabaseTestHelper.insertVoter(voter2.getNif());
+		DatabaseTestHelper.insertVoter(voter3.getNif());
 	}
 
 	private static void emptyDB() throws SQLException {

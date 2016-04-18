@@ -32,7 +32,8 @@ public class DatabaseTestHelper {
 		JdbcHelper.close(con, ps);
 	}
 
-	public static Voter insertVoter(Voter voter) throws SQLException {
+	public static Voter insertVoter(String nif) throws SQLException {
+		Voter voter = new Voter(nif);
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
@@ -43,6 +44,23 @@ public class DatabaseTestHelper {
 		return voter;
 	}
 
+	public static Voter insertVoter(Voter voter) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = JdbcHelper.getConnection();
+		ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("INSERT_COMPLETE_VOTER"));
+		ps.setString(1, voter.getNif());
+		ps.setString(2, voter.getName());
+		ps.setString(3, voter.getEmail());
+		ps.setInt(4, voter.getElectoralBoard());
+		ps.setString(5, voter.getPassword());
+		ps.setBoolean(6, voter.getHasVoted());
+		ps.setBoolean(7, voter.isEVoter());
+		ps.executeUpdate();
+		JdbcHelper.close(con, ps);
+		return voter;
+	}
+	
 	public static Voter findVoter(String nif) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
