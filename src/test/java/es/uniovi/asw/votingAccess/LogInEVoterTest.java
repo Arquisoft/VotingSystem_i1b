@@ -12,10 +12,9 @@ import es.uniovi.asw.DBUpdate.DatabaseTestHelper;
 import es.uniovi.asw.DBUpdate.JdbcHelper;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 import es.uniovi.asw.votingAccess.business.LogInEVoter;
-import es.uniovi.asw.votingAccess.business.RegisterEVoter;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
 
-public class EVotingTest {
+public class LogInEVoterTest {
 
 	private static Voter voter1 = new Voter("TEST1", "Test voter 1", "voter1@test.com", 1, "password1", false, false);
 	private static Voter voter2 = new Voter("TEST2", "Test voter 2", "voter2@test.com", 1, "password2", false, true);
@@ -33,22 +32,11 @@ public class EVotingTest {
 	}
 	
 	@Test
-	public void testRegisterEVoter() throws BusinessException, SQLException {
-		Voter testVoter;
-		
-		assertFalse(voter1.isEVoter());
-		testVoter = new RegisterEVoter().registerEVoter(voter1.getNif());
-		assertEquals(voter1, testVoter);
-		assertTrue(testVoter.isEVoter());
-	}
-	
-	@Test
-	public void testLogInEVoter() throws BusinessException, SQLException {
+	public void testCorrectLogIn() throws BusinessException, SQLException {
 		Voter testVoter;
 		
 		assertTrue(voter2.isEVoter());
 		testVoter = new LogInEVoter().logInEVoter(voter2.getNif(), voter2.getPassword());
 		assertEquals(voter2, testVoter);
 	}
-
 }

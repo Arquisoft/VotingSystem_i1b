@@ -44,8 +44,8 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 	}
 
 	private Voter resultSetToVoter(ResultSet rs) throws SQLException {
-		Voter voter;
-		rs.next();
+		Voter voter = null;
+		if(rs.next()){
 		voter = new Voter(rs.getString(1),
 				rs.getString(2),
 				rs.getString(3),
@@ -53,6 +53,7 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 				rs.getString(5),
 				rs.getBoolean(6),
 				rs.getBoolean(7));
+		}
 		assert !rs.next();
 		return voter;
 	}

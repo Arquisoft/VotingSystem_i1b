@@ -6,6 +6,7 @@ import es.uniovi.asw.DBUpdate.DatabaseAccess;
 import es.uniovi.asw.DBUpdate.DatabaseAccessImpl;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
+import es.uniovi.asw.votingAccess.exception.BusinessExceptionMessages;
 
 public class RegisterEVoter {
 
@@ -16,10 +17,10 @@ public class RegisterEVoter {
 
 		voter = db.findVoter(nif);
 		if (voter == null) {
-			throw new BusinessException("The given NIF does not correspond to any voter registered in the census");
+			throw new BusinessException(BusinessExceptionMessages.NOT_IN_CENSUS);
 		}
 		if (voter.isEVoter()) {
-			throw new BusinessException("The user is already registered as e-voter");
+			throw new BusinessException(BusinessExceptionMessages.ALREADY_EVOTER);
 		}
 		voter.setEVoter(true);
 		return db.insertEVoter(voter);
