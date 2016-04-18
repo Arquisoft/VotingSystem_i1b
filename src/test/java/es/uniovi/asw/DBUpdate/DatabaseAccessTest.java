@@ -44,7 +44,7 @@ public class DatabaseAccessTest {
 	}
 	
 	@Test
-	public void findVoter() {
+	public void findVoter() throws SQLException {
 		assertEquals(voter1, db.findVoter(voter1.getNif()));
 	}
 	
