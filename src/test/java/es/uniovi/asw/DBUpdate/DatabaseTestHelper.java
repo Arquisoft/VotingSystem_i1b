@@ -10,9 +10,11 @@ import java.util.List;
 import es.uniovi.asw.DBUpdate.modelo.Vote;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 
-class DatabaseAccessTestHelper {
+public class DatabaseTestHelper {
 
-	static void deleteVotes() throws SQLException {
+	public static final String DB_CONFIG_FILE = "src/test/resources/database.properties";
+	
+	public static void deleteVotes() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
@@ -21,7 +23,7 @@ class DatabaseAccessTestHelper {
 		JdbcHelper.close(con, ps);
 	}
 
-	static void deleteVoters() throws SQLException {
+	public static void deleteVoters() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
@@ -30,7 +32,8 @@ class DatabaseAccessTestHelper {
 		JdbcHelper.close(con, ps);
 	}
 
-	static Voter insertVoter(Voter voter) throws SQLException {
+	public static Voter insertVoter(String nif) throws SQLException {
+		Voter voter = new Voter(nif);
 		Connection con = null;
 		PreparedStatement ps = null;
 		con = JdbcHelper.getConnection();
@@ -41,6 +44,23 @@ class DatabaseAccessTestHelper {
 		return voter;
 	}
 
+	public static Voter insertVoter(Voter voter) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = JdbcHelper.getConnection();
+		ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("INSERT_COMPLETE_VOTER"));
+		ps.setString(1, voter.getNif());
+		ps.setString(2, voter.getName());
+		ps.setString(3, voter.getEmail());
+		ps.setInt(4, voter.getElectoralBoard());
+		ps.setString(5, voter.getPassword());
+		ps.setBoolean(6, voter.getHasVoted());
+		ps.setBoolean(7, voter.isEVoter());
+		ps.executeUpdate();
+		JdbcHelper.close(con, ps);
+		return voter;
+	}
+	
 	public static Voter findVoter(String nif) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;

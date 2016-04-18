@@ -11,7 +11,7 @@ import es.uniovi.asw.DBUpdate.modelo.Voter;
 public class DatabaseAccessImpl implements DatabaseAccess {
 
 	@Override
-	public Vote insertVote(Vote vote) {
+	public Vote insertVote(Vote vote) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -21,16 +21,13 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 			ps.setString(1, vote.getOption());
 			ps.executeUpdate();
 			return vote;
-		} catch (SQLException e) {
-			System.err.println(e.getStackTrace());
-			return vote;
 		} finally {
 			JdbcHelper.close(con, ps);
 		}
 	}
 
 	@Override
-	public Voter findVoter(String nif) {
+	public Voter findVoter(String nif) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -41,17 +38,14 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 			ps.setString(1, nif);
 			rs = ps.executeQuery();
 			return resultSetToVoter(rs);
-		} catch (SQLException e){
-			System.err.println(e.getStackTrace());
-			return null;
 		} finally {
 			JdbcHelper.close(rs, ps, con);
 		}
 	}
 
 	private Voter resultSetToVoter(ResultSet rs) throws SQLException {
-		Voter voter;
-		rs.next();
+		Voter voter = null;
+		if(rs.next()){
 		voter = new Voter(rs.getString(1),
 				rs.getString(2),
 				rs.getString(3),
@@ -59,12 +53,13 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 				rs.getString(5),
 				rs.getBoolean(6),
 				rs.getBoolean(7));
+		}
 		assert !rs.next();
 		return voter;
 	}
 
 	@Override
-	public Voter insertEVoter(Voter voter) {
+	public Voter insertEVoter(Voter voter) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -75,16 +70,13 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 			ps.setString(2, voter.getNif());
 			ps.executeUpdate();
 			return voter;
-		} catch (SQLException e){
-			System.err.println(e.getStackTrace());
-			return voter;
 		} finally {
 			JdbcHelper.close(con, ps);
 		}
 	}
 
 	@Override
-	public Voter updateHasVoted(Voter voter) {
+	public Voter updateHasVoted(Voter voter) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
@@ -94,9 +86,6 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 			ps.setBoolean(1, voter.getHasVoted());
 			ps.setString(2, voter.getNif());
 			ps.executeUpdate();
-			return voter;
-		} catch (SQLException e){
-			System.err.println(e.getStackTrace());
 			return voter;
 		} finally {
 			JdbcHelper.close(con, ps);
