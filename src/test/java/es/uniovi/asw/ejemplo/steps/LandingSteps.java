@@ -55,5 +55,12 @@ public class LandingSteps {
   public void the_client_receives_the_string(String str) throws Throwable {
    assertThat(result.getResponse().getContentAsString(), containsString(str));
   }
+  
+  
+  @Then("^this should be possible$")
+  public void this_should_be_possible() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      System.out.println("This is running properly");
+  }
 
 }
