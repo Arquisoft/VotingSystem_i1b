@@ -4,21 +4,38 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import es.uniovi.asw.votingAccess.console.actions.QuitAction;
 
+/**
+ * Class made to output the different services offered to the user and to process what he/she chooses.
+ * Each service corresponds to an Action class.
+ * @author UO238739
+ *
+ */
 public class ConsoleReader {
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private PrintStream writer = System.out;
 	private PrintStream errorWriter = System.err;
 	private final static String ORDER_TEMPLATE = "(%d) %s";
-	private List<Action> initialActions;
+	private List<Action> initialActions = new ArrayList<Action>();
 	
-	public ConsoleReader() {
-
+	public ConsoleReader(Action... initialActions) {
+		for(Action action : initialActions){
+			this.initialActions.add(action);
+		}
 	}
 
+	/**
+	 * Shows the different available services, asks the user for the service he/she selects
+	 * and then executes that service. 
+	 * Once the service is finished, a new set of services will be offered depending of that one service.
+	 * If a exception occurs during the execution of a service, it is shown on the console 
+	 * and the previous list of available services is shown again.
+	 * @throws IOException
+	 */
 	public void run() throws IOException {
 		List<Action> availableActions = initialActions;
 		Action selectedAction;
@@ -35,8 +52,13 @@ public class ConsoleReader {
 			}
 		} while(!(selectedAction instanceof QuitAction));
 	}
-
-	private Action selectAction(List<Action> availableActions) throws IOException {
+	
+	/**
+	 * Processes the user's selection.
+	 * If the user chooses a wrong option, it will keep asking until obtaining a valid one.
+	 * @param actions List of actions from where the user selects
+	 */
+	private Action selectAction(List<Action> actions) throws IOException {
 		Integer selectedAction = null;
 
 		while (selectedAction == null) {
@@ -48,9 +70,13 @@ public class ConsoleReader {
 			}
 		}
 
-		return availableActions.get(selectedAction);
+		return actions.get(selectedAction);
 	}
-
+	
+	/**
+	 * Outputs the different available services
+	 * @param actions List of services to be shown
+	 */
 	private void listActions(List<Action> actions) {
 		String order;
 		Action action;
