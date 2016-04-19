@@ -79,7 +79,7 @@ public class MainControllerTest {
 			  new FileReader(
 					  "src/test/java/es/uniovi/asw/ejemplo/dniInput.txt"));
 	  try {
-		  new RegisterEVoterAction().askUser(reader);
+		  new RegisterEVoterAction().askUser(reader, System.out, System.err);
 	  } catch(BusinessException b) {
 		  exceptionThrown = b;
 	  }
@@ -113,7 +113,7 @@ public class MainControllerTest {
 			  new FileReader(
 					  "src/test/java/es/uniovi/asw/ejemplo/dniaInput.txt"));
 	  try {
-		  new RegisterEVoterAction().askUser(reader);
+		  new RegisterEVoterAction().askUser(reader, System.out, System.err);
 	  } catch(BusinessException b) {
 		  exceptionThrown = b;
 	  }
@@ -148,7 +148,7 @@ public class MainControllerTest {
 	  BufferedReader reader = new BufferedReader(
 			  new FileReader(
 					  "src/test/java/es/uniovi/asw/ejemplo/dnibInput.txt"));
-	  new RegisterEVoterAction().askUser(reader);
+	  new RegisterEVoterAction().askUser(reader, System.out, System.err);
 
   }
   

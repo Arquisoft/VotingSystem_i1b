@@ -15,3 +15,10 @@ Feature: A voter registers to vote electronically
 	When the voter introduces it's NIF
 	Then the voter is registered for online voting
     
+
+Feature: A voter logs in and votes electronically
+
+	Scenario: The NIF introduced by the voter does not correspond to a NIF in the census
+	Given the NIF of the voter who tries to vote does not exist
+	When the voter introduces his NIF and password
+	Then the application shows a message showing the problem

@@ -2,16 +2,26 @@ package es.uniovi.asw.votingAccess.console.actions;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
+import java.util.List;
 
+import org.xml.sax.Attributes;
+
+import es.uniovi.asw.votingAccess.console.Action;
+
+import ch.qos.logback.core.joran.spi.ActionException;
+import ch.qos.logback.core.joran.spi.InterpretationContext;
 import es.uniovi.asw.votingAccess.business.RegisterEVoter;
 
-public class RegisterEVoterAction extends DefaultAction {
+public class RegisterEVoterAction implements Action {
 
 	public RegisterEVoterAction() {
-		setNextActions(this, new LogInEVoterAction());
+		//setNextActions(this, new LogInAndVoteAction());
 	}
+	
+	//TODO: Use extends DefaultAction instead of implements action
 
-	public Object askUser(BufferedReader reader, PrintStream writer, PrintStream errorWriter) throws Exception {
+	public Object askUser(BufferedReader reader,
+			PrintStream writer, PrintStream errorWriter) throws Exception {
 		String nif = null;
 
 		writer.println("Voter's NIF:");
@@ -29,6 +39,14 @@ public class RegisterEVoterAction extends DefaultAction {
 	private boolean correctNIF(String nif) {
 		return nif != null && !nif.isEmpty();
 	}
+
+
+	@Override
+	public List<Action> getNextActions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	@Override
 	public String getOrder() {

@@ -14,7 +14,8 @@ public class QuitAction implements Action{
 	}
 
 	@Override
-	public Object askUser(BufferedReader reader, PrintStream writer, PrintStream errorWriter) throws Exception {
+	public Object askUser(BufferedReader reader, PrintStream writer,
+			PrintStream errorWriter) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
