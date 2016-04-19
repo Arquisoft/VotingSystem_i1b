@@ -65,14 +65,14 @@ public class DatabaseTestHelper {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Voter voter;
+		Voter voter = null;
 		
 			con = JdbcHelper.getConnection();
 			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("FIND_VOTER_BY_NIF"));
 			ps.setString(1, nif);
 			rs = ps.executeQuery();
 			
-			rs.next();
+			if (rs.next()) {
 			voter = new Voter(rs.getString(1),
 					rs.getString(2),
 					rs.getString(3),
@@ -80,6 +80,7 @@ public class DatabaseTestHelper {
 					rs.getString(5),
 					rs.getBoolean(6),
 					rs.getBoolean(7));
+			}
 			assert !rs.next();
 			
 			JdbcHelper.close(rs, ps, con);

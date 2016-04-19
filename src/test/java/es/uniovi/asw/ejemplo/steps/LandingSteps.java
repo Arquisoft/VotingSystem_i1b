@@ -34,29 +34,4 @@ public class LandingSteps {
   @Value("${local.server.port}")
   protected int port;
 
-  
-  @When("^the client calls /$")
-  public void the_client_calls() throws Throwable {
-    Assert.notNull(context);
-    this.mvc = MockMvcBuilders.webAppContextSetup(context).build();
-    result = mvc.perform(get("/")).andReturn();
-  }
-
-  @Then("^the client receives status code of (\\d+)$")
-  public void the_client_receives_status_code_of(int status) throws Throwable {
-    assertThat(result.getResponse().getStatus(), is(status));
-  }
-
-  @Then("^the client receives the string \"([^\"]*)\"$")
-  public void the_client_receives_the_string(String str) throws Throwable {
-   assertThat(result.getResponse().getContentAsString(), containsString(str));
-  }
-  
-  
-  @Then("^this should be possible$")
-  public void this_should_be_possible() throws Throwable {
-      // Write code here that turns the phrase above into concrete actions
-      System.out.println("This is running properly");
-  }
-
 }

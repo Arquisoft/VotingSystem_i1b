@@ -3,7 +3,6 @@ package es.uniovi.asw.ejemplo;
 import org.junit.runner.RunWith;
 
 import cucumber.api.CucumberOptions;
-import cucumber.api.java.en.Then;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
@@ -13,6 +12,6 @@ import cucumber.api.junit.Cucumber;
 //@WebAppConfiguration
 //@IntegrationTest({ "server.port=0" })
 @CucumberOptions(features = "src/test/resources/features")
-public class CucumberTest{
+public class CucumberTest {
 	
 }

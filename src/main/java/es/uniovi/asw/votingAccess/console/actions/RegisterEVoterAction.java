@@ -1,6 +1,7 @@
 package es.uniovi.asw.votingAccess.console.actions;
 
 import java.io.BufferedReader;
+
 import es.uniovi.asw.votingAccess.business.RegisterEVoter;
 import es.uniovi.asw.votingAccess.console.Action;
 
