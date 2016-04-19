@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 import org.junit.Before;
@@ -22,12 +21,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import es.uniovi.asw.DBUpdate.DatabaseTestHelper;
 import es.uniovi.asw.DBUpdate.JdbcHelper;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
+import es.uniovi.asw.votingAccess.business.LogInEVoter;
 import es.uniovi.asw.votingAccess.console.actions.RegisterEVoterAction;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
 
@@ -70,6 +71,8 @@ public class MainControllerTest {
 					  "perico@uniovi.es", 1, "soyPerico", false, true));
 	  DatabaseTestHelper.insertVoter(new Voter("55824978L", "Alberto",
 			  "alberto@uniovi.es", 2, "albertoPassword", false, false));
+	  DatabaseTestHelper.insertVoter(new Voter("58584762G", "Pepe",
+			  "pepe@uniovi.es", 2, "passwordPEPE", false, false));
   }
 
   @When("^the voter gives it's non-existing NIF$")
@@ -160,6 +163,93 @@ public class MainControllerTest {
 	  org.junit.Assert.assertTrue(
 			  DatabaseTestHelper.findVoter("55824978L").isEVoter());
 	  DatabaseTestHelper.deleteVoters();
+  }
+  
+  
+  @Given("^the NIF of the voter who tries to vote does not exist$")
+  public void the_NIF_of_the_voter_who_tries_to_vote_does_not_exist() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+	  JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
+	  DatabaseTestHelper.deleteVoters();
+	  insertExampleVoters();
+	  org.junit.Assert.assertNull(DatabaseTestHelper.findVoter("12345678U"));
+  }
+
+  
+  @When("^the voter introduces his NIF and password$")
+  public void the_voter_introduces_his_NIF_and_password() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      try {
+    	  new LogInEVoter().logInEVoter("12345678U", "password");
+      } catch(BusinessException b) {
+    	  exceptionThrown = b;
+      }
+  }
+
+  
+  @Then("^the application shows a message showing the problem$")
+  public void the_application_shows_a_message_showing_the_problem() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      org.junit.Assert.assertTrue(exceptionThrown.getMessage().contains(
+    		  "given NIF does not correspond to any voter registered"));
+      DatabaseTestHelper.deleteVoters();
+  }
+  
+  
+  
+  @Given("^the NIF and password of the voter is correct but the voter is not registered to vote electronically$")
+  public void the_NIF_and_password_of_the_voter_is_correct_but_the_voter_is_not_registered_to_vote_electronically() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+	  JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
+	  DatabaseTestHelper.deleteVoters();
+	  insertExampleVoters();
+	  org.junit.Assert.assertNotNull(DatabaseTestHelper.findVoter("58584762G"));
+  }
+
+  @When("^the voter inputs his NIF and password$")
+  public void the_voter_inputs_his_NIF_and_password() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+	  try {
+    	  new LogInEVoter().logInEVoter("58584762G", "passwordPEPE");
+      } catch(BusinessException b) {
+    	  exceptionThrown = b;
+      }
+  }
+
+  @Then("^the application tells the voter he is not registered$")
+  public void the_application_tells_the_voter_he_is_not_registered() throws Throwable {
+      org.junit.Assert.assertTrue(
+    		  exceptionThrown.getMessage().contains(
+    				  "not registered as e-voter"));
+      DatabaseTestHelper.deleteVoters();
+  }
+  
+  
+  @Given("^the NIF introduced by the voter exists$")
+  public void the_NIF_introduced_by_the_voter_exists() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+	  JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
+	  DatabaseTestHelper.deleteVoters();
+	  insertExampleVoters();
+	  org.junit.Assert.assertNotNull(DatabaseTestHelper.findVoter("81380579U"));
+  }
+
+  @When("^the voter introduces a wrong password$")
+  public void the_voter_introduces_a_wrong_password() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      try {
+    	  new LogInEVoter().logInEVoter("81380579U", "wrongPassword");
+      } catch(BusinessException b) {
+    	  exceptionThrown = b;
+      }
+  }
+
+  @Then("^the program shows the error to the voter$")
+  public void the_program_shows_the_error_to_the_voter() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      org.junit.Assert.assertTrue(
+    		  exceptionThrown.getMessage().contains("password is incorrect"));
+      DatabaseTestHelper.deleteVoters();
   }
 
 }
