@@ -11,9 +11,9 @@ import es.uniovi.asw.votingAccess.business.LogInEVoter;
 import es.uniovi.asw.votingAccess.business.VoteEVoter;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
 
-public class LogInEVoterAction extends DefaultAction {
+public class LogInAndVoteAction extends DefaultAction {
 	
-	public LogInEVoterAction(){
+	public LogInAndVoteAction(){
 		setNextActions(new RegisterEVoterAction(), this);
 	}
 	

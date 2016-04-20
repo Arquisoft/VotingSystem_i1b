@@ -7,8 +7,11 @@ import es.uniovi.asw.votingAccess.business.AddVote;
 
 public class SubmitVoteAction extends DefaultAction {
 
-	public SubmitVoteAction(){
-		setNextActions(this, new MarkVoterAction());
+	private int electoralBoardCode;
+	
+	public SubmitVoteAction(int boardCode){
+		this.electoralBoardCode = boardCode;
+		setNextActions(this, new MarkVoterAction(boardCode));
 	}
 	
 	@Override

@@ -8,7 +8,7 @@ import es.uniovi.asw.votingAccess.business.RegisterEVoter;
 public class RegisterEVoterAction extends DefaultAction {
 
 	public RegisterEVoterAction() {
-		setNextActions(this, new LogInEVoterAction());
+		setNextActions(this, new LogInAndVoteAction());
 	}
 	
 

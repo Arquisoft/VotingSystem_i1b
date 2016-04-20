@@ -25,6 +25,7 @@ public class ConsoleReader {
 	public ConsoleReader(Action... initialActions) {
 		for(Action action : initialActions){
 			this.initialActions.add(action);
+			this.initialActions.add(new QuitAction());
 		}
 	}
 
