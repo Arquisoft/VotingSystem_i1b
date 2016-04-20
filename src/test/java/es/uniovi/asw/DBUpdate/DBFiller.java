@@ -22,6 +22,7 @@ public class DBFiller {
 		DatabaseTestHelper.insertVoter(voter2);
 		DatabaseTestHelper.insertVoter(voter3);
 		DatabaseTestHelper.insertVoter(voter4);
+		
 	}
 
 }
