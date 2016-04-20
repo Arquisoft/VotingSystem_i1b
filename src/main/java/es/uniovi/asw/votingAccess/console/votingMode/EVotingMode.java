@@ -9,7 +9,7 @@ import es.uniovi.asw.votingAccess.console.actions.RegisterEVoterAction;
 public class EVotingMode implements VotingMode {
 
 	@Override
-	public ConsoleReader setUpConsole(Object[] params) {
+	public ConsoleReader setUpConsole(Object...params) {
 		Action registerEVoter = new RegisterEVoterAction();
 		Action logInAndVote = new LogInAndVoteAction();
 		
