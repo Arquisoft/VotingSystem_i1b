@@ -7,11 +7,6 @@ import es.uniovi.asw.votingAccess.business.RegisterEVoter;
 
 public class RegisterEVoterAction extends DefaultAction {
 
-	public RegisterEVoterAction() {
-		setNextActions(this, new LogInAndVoteAction());
-	}
-	
-
 	public Object askUser(BufferedReader reader,
 			PrintStream writer, PrintStream errorWriter) throws Exception {
 		String nif = null;

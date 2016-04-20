@@ -13,10 +13,6 @@ import es.uniovi.asw.votingAccess.exception.BusinessException;
 
 public class LogInAndVoteAction extends DefaultAction {
 	
-	public LogInAndVoteAction(){
-		setNextActions(new RegisterEVoterAction(), this);
-	}
-	
 	@Override
 	public String getOrder() {
 		return "Identify yourself and vote";

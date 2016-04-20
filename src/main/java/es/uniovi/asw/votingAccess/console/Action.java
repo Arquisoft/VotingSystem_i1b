@@ -31,4 +31,5 @@ public interface Action {
 	 * @return
 	 */
 	public List<Action> getNextActions();
+	public void setNextActions(Action...actions);
 }

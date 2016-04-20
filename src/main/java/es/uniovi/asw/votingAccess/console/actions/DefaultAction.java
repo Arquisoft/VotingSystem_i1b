@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uniovi.asw.votingAccess.console.Action;
+import es.uniovi.asw.votingAccess.console.ConsoleReader;
 
 public abstract class DefaultAction implements Action {
 	protected List<Action> nextActions = new ArrayList<Action>();
-	private static Action quitAction = new QuitAction();
 	
-	protected void setNextActions(Action... actions){
-		nextActions.add(quitAction);
+	@Override
+	public void setNextActions(Action... actions){
+		nextActions = new ArrayList<Action>();
+		nextActions.add(ConsoleReader.getQuitAction());
 		for(Action action : actions){
 			nextActions.add(action);
 		}

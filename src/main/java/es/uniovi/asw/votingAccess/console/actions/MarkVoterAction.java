@@ -11,7 +11,6 @@ public class MarkVoterAction extends DefaultAction {
 	
 	public MarkVoterAction(int boardCode){
 		this.electoralBoardCode = boardCode;
-		setNextActions(new SubmitVoteAction(boardCode), this);
 	}
 	
 	@Override

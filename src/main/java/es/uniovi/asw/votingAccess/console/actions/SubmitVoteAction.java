@@ -7,10 +7,6 @@ import es.uniovi.asw.votingAccess.business.AddVote;
 
 public class SubmitVoteAction extends DefaultAction {
 	
-	public SubmitVoteAction(int boardCode){
-		setNextActions(this, new MarkVoterAction(boardCode));
-	}
-	
 	@Override
 	public String getOrder() {
 		return "Submit a vote";

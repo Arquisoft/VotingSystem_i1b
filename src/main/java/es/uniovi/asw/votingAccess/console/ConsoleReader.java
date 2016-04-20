@@ -22,6 +22,7 @@ public class ConsoleReader {
 	private PrintStream errorWriter = System.err;
 	private final static String ORDER_TEMPLATE = "(%d) %s";
 	private List<Action> initialActions = new ArrayList<Action>();
+	private static QuitAction quitAction;
 	
 	public ConsoleReader(Action... initialActions) {
 		this.initialActions.add(new QuitAction());
@@ -30,12 +31,23 @@ public class ConsoleReader {
 		}
 	}
 	
+	public static QuitAction getQuitAction(){
+		if(quitAction == null){
+			quitAction = new QuitAction();
+		}
+		return quitAction;
+	}
+	
 	public void setWriter(PrintStream writer){
 		this.writer = writer;
 	}
 	
 	public void setInputStream(InputStream reader) {
 		this.reader = new BufferedReader(new InputStreamReader(reader));
+	}
+	
+	public List<Action> getInitialActions(){
+		return initialActions;
 	}
 	
 	/**
@@ -61,6 +73,8 @@ public class ConsoleReader {
 				errorWriter.println(e.getMessage());
 			}
 		} while(!(selectedAction instanceof QuitAction));
+		writer.close();
+		errorWriter.close();
 	}
 	
 	/**
