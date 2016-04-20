@@ -14,6 +14,7 @@ public class VoteEVoter {
 	public void voteEVoter(Vote vote, Voter v) throws SQLException {
 
 		db.insertVote(vote);
+		v.setHasVoted(true);
 		db.updateHasVoted(v);
 	}
 

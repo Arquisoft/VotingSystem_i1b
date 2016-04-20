@@ -5,9 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,9 +26,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import es.uniovi.asw.DBUpdate.DatabaseTestHelper;
 import es.uniovi.asw.DBUpdate.JdbcHelper;
+import es.uniovi.asw.DBUpdate.modelo.Vote;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 import es.uniovi.asw.votingAccess.business.LogInEVoter;
-import es.uniovi.asw.votingAccess.console.actions.RegisterEVoterAction;
+import es.uniovi.asw.votingAccess.business.RegisterEVoter;
+import es.uniovi.asw.votingAccess.business.VoteEVoter;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -79,11 +80,8 @@ public class MainControllerTest {
   @When("^the voter gives it's non-existing NIF$")
   public void the_voter_gives_it_s_non_existing_NIF() throws Throwable {
       // Write code here that turns the phrase above into concrete actions
-	  BufferedReader reader = new BufferedReader(
-			  new FileReader(
-					  "src/test/java/es/uniovi/asw/ejemplo/dniInput.txt"));
 	  try {
-		  new RegisterEVoterAction().askUser(reader, System.out, System.err);
+		  new RegisterEVoter().registerEVoter("53781447H");
 	  } catch(BusinessException b) {
 		  exceptionThrown = b;
 	  }
@@ -113,11 +111,8 @@ public class MainControllerTest {
   @When("^the voter gives it's NIF$")
   public void the_voter_gives_it_s_NIF() throws Throwable {
       // Write code here that turns the phrase above into concrete actions
-	  BufferedReader reader = new BufferedReader(
-			  new FileReader(
-					  "src/test/java/es/uniovi/asw/ejemplo/dniaInput.txt"));
 	  try {
-		  new RegisterEVoterAction().askUser(reader, System.out, System.err);
+		  new RegisterEVoter().registerEVoter("81380579U");
 	  } catch(BusinessException b) {
 		  exceptionThrown = b;
 	  }
@@ -149,10 +144,7 @@ public class MainControllerTest {
   @When("^the voter introduces it's NIF$")
   public void the_voter_introduces_it_s_NIF() throws Throwable {
       // Write code here that turns the phrase above into concrete actions
-	  BufferedReader reader = new BufferedReader(
-			  new FileReader(
-					  "src/test/java/es/uniovi/asw/ejemplo/dnibInput.txt"));
-	  new RegisterEVoterAction().askUser(reader, System.out, System.err);
+	  new RegisterEVoter().registerEVoter("55824978L");
 
   }
   
@@ -292,6 +284,44 @@ public class MainControllerTest {
       org.junit.Assert.assertEquals("Perico", logged.getName());
       org.junit.Assert.assertEquals("81380579U", logged.getNif());
       org.junit.Assert.assertEquals("perico@uniovi.es", logged.getEmail());
+  }
+  
+  
+  
+  @Given("^the user has already logged in$")
+  public void the_user_has_already_logged_in() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+	  JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
+	  DatabaseTestHelper.deleteVoters();
+	  insertExampleVoters();
+	  org.junit.Assert.assertNotNull(DatabaseTestHelper.findVoter("81380579U"));
+	  org.junit.Assert.assertFalse(
+			  DatabaseTestHelper.findVoter("81380579U").getHasVoted());
+	  aux = new LogInEVoter().logInEVoter("81380579U", "soyPerico");
+  }
+
+  @When("^the user submits his vote$")
+  public void the_user_submits_his_vote() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      new VoteEVoter().voteEVoter(new Vote("Y"), (Voter) aux);
+  }
+
+  @Then("^the option selected by the user is added to the database$")
+  public void the_option_selected_by_the_user_is_added_to_the_database() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      List<Vote> votes = DatabaseTestHelper.findVotes();
+      org.junit.Assert.assertEquals(1, votes.size());
+      org.junit.Assert.assertEquals("Y", votes.get(0).getOption());
+      
+  }
+
+  @Then("^the voter who voted is marked as already voted, so he can't vote again$")
+  public void the_voter_who_voted_is_marked_as_already_voted_so_he_can_t_vote_again() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      org.junit.Assert.assertTrue(
+    		  DatabaseTestHelper.findVoter("81380579U").getHasVoted());
+      DatabaseTestHelper.deleteVotes();
+      DatabaseTestHelper.deleteVoters();
   }
 
 }

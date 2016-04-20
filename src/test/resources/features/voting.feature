@@ -21,3 +21,9 @@ Feature: A voter logs in and votes electronically
 	And it has not voted yet
 	When the voter introduces the correct NIF and password
 	Then the user is logged in
+	
+	Scenario: The user logs in and successfully submits a vote
+	Given the user has already logged in
+	When the user submits his vote
+	Then the option selected by the user is added to the database
+	And the voter who voted is marked as already voted, so he can't vote again
