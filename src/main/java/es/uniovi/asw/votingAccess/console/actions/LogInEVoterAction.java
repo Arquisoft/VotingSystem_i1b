@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.sql.SQLException;
 
-import es.uniovi.asw.DBUpdate.DatabaseAccessImpl;
 import es.uniovi.asw.DBUpdate.modelo.Vote;
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 import es.uniovi.asw.votingAccess.business.LogInEVoter;

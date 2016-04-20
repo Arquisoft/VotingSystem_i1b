@@ -3,10 +3,7 @@ package es.uniovi.asw.votingAccess.business;
 import es.uniovi.asw.DBUpdate.DatabaseAccess;
 import es.uniovi.asw.DBUpdate.DatabaseAccessImpl;
 import es.uniovi.asw.DBUpdate.modelo.Vote;
-import es.uniovi.asw.DBUpdate.modelo.Voter;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
-import es.uniovi.asw.votingAccess.exception.BusinessExceptionMessages;
-
 import java.sql.SQLException;
 
 /**
