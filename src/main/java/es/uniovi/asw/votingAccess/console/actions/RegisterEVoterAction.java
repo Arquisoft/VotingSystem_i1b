@@ -12,7 +12,8 @@ public class RegisterEVoterAction extends DefaultAction {
 	public Object askUser(BufferedReader reader,
 			PrintStream writer, PrintStream errorWriter) throws Exception {
 		String nif = null;
-
+		Voter voter;
+		
 		writer.println("Voter's NIF:");
 		while (!correctNIF(nif)) {
 			nif = reader.readLine();
@@ -24,12 +25,19 @@ public class RegisterEVoterAction extends DefaultAction {
 		
 		Voter v = null;
 
+<<<<<<< HEAD
 		try {
 			v = new RegisterEVoter().registerEVoter(nif);
 		} catch(BusinessException b) {
 			writer.println(b.getMessage());
 		}
 		return v;
+=======
+		voter = new RegisterEVoter().registerEVoter(nif);
+		writer.println("New e-voter registered");
+		
+		return voter;
+>>>>>>> bd2baaa35a57c62ab08af1a42979337df592b439
 	}
 
 
