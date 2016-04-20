@@ -10,4 +10,8 @@ public class BusinessExceptionMessages {
 			"The user is not registered as e-voter";
 	public static final String WRONG_PASSWORD = 
 			"The given password is incorrect";
+	public static final String IS_EVOTER =
+			"The voter is an e-voter. He can't vote in person";
+    public static final String HAS_ALREADY_VOTED =
+            "The voter has already voted, he can't vote again";
 }
