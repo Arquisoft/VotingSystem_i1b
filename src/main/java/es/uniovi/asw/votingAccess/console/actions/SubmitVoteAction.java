@@ -6,11 +6,8 @@ import java.io.PrintStream;
 import es.uniovi.asw.votingAccess.business.AddVote;
 
 public class SubmitVoteAction extends DefaultAction {
-
-	private int electoralBoardCode;
 	
 	public SubmitVoteAction(int boardCode){
-		this.electoralBoardCode = boardCode;
 		setNextActions(this, new MarkVoterAction(boardCode));
 	}
 	

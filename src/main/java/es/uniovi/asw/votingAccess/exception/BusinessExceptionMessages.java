@@ -14,4 +14,6 @@ public class BusinessExceptionMessages {
 			"The voter is an e-voter. He can't vote in person";
     public static final String HAS_ALREADY_VOTED =
             "The voter has already voted, he can't vote again";
+	public static final String WRONG_ELECTORAL_BOARD = 
+			"The voter belongs to the Electoral Board number %d, not %d";
 }

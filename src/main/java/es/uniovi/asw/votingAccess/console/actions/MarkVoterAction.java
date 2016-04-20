@@ -25,7 +25,7 @@ public class MarkVoterAction extends DefaultAction {
 		
 		writer.println("Introduce the voter's NIF: ");
         nif = reader.readLine();
-        new MarkVoter().markVoter(nif);
+        new MarkVoter().markVoter(nif, electoralBoardCode);
         writer.println("The voter has been marked");
         
         return null;
