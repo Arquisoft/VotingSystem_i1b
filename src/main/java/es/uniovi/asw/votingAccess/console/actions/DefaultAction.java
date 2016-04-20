@@ -20,5 +20,10 @@ public abstract class DefaultAction implements Action {
 	public List<Action> getNextActions() {
 		return nextActions;
 	}
+	
+	
+	protected boolean correctNIF(String nif) {
+		return nif != null && !nif.isEmpty();
+	}
 
 }
