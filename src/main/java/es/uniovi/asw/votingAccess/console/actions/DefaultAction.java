@@ -10,10 +10,10 @@ public abstract class DefaultAction implements Action {
 	private static Action quitAction = new QuitAction();
 	
 	protected void setNextActions(Action... actions){
+		nextActions.add(quitAction);
 		for(Action action : actions){
 			nextActions.add(action);
 		}
-		nextActions.add(quitAction);
 	}
 	
 	@Override
