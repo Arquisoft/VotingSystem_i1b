@@ -25,19 +25,14 @@ public class RegisterEVoterAction extends DefaultAction {
 		
 		Voter v = null;
 
-<<<<<<< HEAD
 		try {
 			v = new RegisterEVoter().registerEVoter(nif);
 		} catch(BusinessException b) {
 			writer.println(b.getMessage());
 		}
-		return v;
-=======
-		voter = new RegisterEVoter().registerEVoter(nif);
 		writer.println("New e-voter registered");
 		
-		return voter;
->>>>>>> bd2baaa35a57c62ab08af1a42979337df592b439
+		return v;
 	}
 
 

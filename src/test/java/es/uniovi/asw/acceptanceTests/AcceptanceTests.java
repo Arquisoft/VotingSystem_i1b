@@ -19,6 +19,7 @@ import es.uniovi.asw.DBUpdate.modelo.Voter;
 import es.uniovi.asw.votingAccess.business.LogInEVoter;
 import es.uniovi.asw.votingAccess.business.RegisterEVoter;
 import es.uniovi.asw.votingAccess.console.actions.LogInAndVoteAction;
+import es.uniovi.asw.votingAccess.console.actions.MarkVoterAction;
 import es.uniovi.asw.votingAccess.console.actions.RegisterEVoterAction;
 import es.uniovi.asw.votingAccess.console.actions.SubmitVoteAction;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
@@ -286,6 +287,39 @@ public class AcceptanceTests {
 	      org.junit.Assert.assertEquals(1, votes.size());
 	      org.junit.Assert.assertEquals("N", votes.get(0).getOption());
 	      DatabaseTestHelper.deleteVotes();
+	  }
+	  
+	  
+	  
+	  @Given("^there exist a vote with NIF (\\d+)L, who has not already voted and is not registered as e voter$")
+	  public void there_exist_a_vote_with_NIF_L_who_has_not_already_voted_and_is_not_registered_as_e_voter(int arg1) throws Throwable {
+	      // Write code here that turns the phrase above into concrete actions
+		  JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
+		  DatabaseTestHelper.deleteVoters();
+		  insertExampleVoters();
+		  org.junit.Assert.assertNotNull(DatabaseTestHelper.findVoter("55824978L"));
+		  org.junit.Assert.assertFalse(
+				  DatabaseTestHelper.findVoter("55824978L").getHasVoted());
+		  org.junit.Assert.assertFalse(
+				  DatabaseTestHelper.findVoter("55824978L").isEVoter());
+	  }
+
+	  @When("^the electoral board introduces the NIF to mark it as already voted$")
+	  public void the_electoral_board_introduces_the_NIF_to_mark_it_as_already_voted() throws Throwable {
+	      // Write code here that turns the phrase above into concrete actions
+		  System.setIn(new ByteArrayInputStream("55824978L\n".getBytes()));
+		  new MarkVoterAction(2).askUser(new BufferedReader(
+				  new InputStreamReader(System.in)),
+				  new PrintStream(outContent), System.err);
+	  }
+	  
+
+	  @Then("^the voter with the NIF is marked as voted$")
+	  public void the_voter_with_the_NIF_is_marked_as_voted() throws Throwable {
+	      // Write code here that turns the phrase above into concrete actions
+	      org.junit.Assert.assertTrue(
+	    		  DatabaseTestHelper.findVoter("55824978L").getHasVoted());
+	      DatabaseTestHelper.deleteVoters();
 	  }
 
 }
