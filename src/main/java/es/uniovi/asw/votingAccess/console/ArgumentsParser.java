@@ -1,6 +1,7 @@
 package es.uniovi.asw.votingAccess.console;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 import org.apache.commons.cli.*;
 
@@ -16,6 +17,7 @@ import es.uniovi.asw.votingAccess.console.votingMode.ElectoralBoardMode;
  */
 public class ArgumentsParser implements VotingAccess{
 
+	private PrintStream writer = System.out;
 	private CommandLineParser parser = new DefaultParser();
 	private Options options = new Options();
 	public static final String BOARD_MODE = "b";
@@ -26,7 +28,7 @@ public class ArgumentsParser implements VotingAccess{
 	public ArgumentsParser(){
 		OptionGroup modeOptions = new OptionGroup();
 		Option boardOp = new Option(BOARD_MODE, true, "Sets the Electoral Board mode");
-		Option evotingOp = new Option(EVOTING_MODE, true, "Sets the electronic voting mode");
+		Option evotingOp = new Option(EVOTING_MODE, false, "Sets the electronic voting mode");
 		modeOptions.addOption(boardOp);
 		modeOptions.addOption(evotingOp);
 		modeOptions.setRequired(true);
@@ -35,7 +37,7 @@ public class ArgumentsParser implements VotingAccess{
 	
     public void processArguments(String[] args) throws ParseException, IOException {
         CommandLine line;
-            line = parser.parse(options, args);
+        line = parse(args);
             if(line.hasOption(BOARD_MODE)) {
                 processBoardMode(line);
             } else if(line.hasOption(EVOTING_MODE)){
@@ -50,7 +52,7 @@ public class ArgumentsParser implements VotingAccess{
             configParams(boardCode);
             vote();
         } else {
-        	System.out.println("The Electoral Board code must be an integer");
+        	throw new IllegalArgumentException("The Electoral Board code must be an integer");
         }
     }
     
@@ -63,10 +65,20 @@ public class ArgumentsParser implements VotingAccess{
 	@Override
 	public void configParams(Object... params) {
 		console = mode.setUpConsole(params);
+		console.setWriter(writer);
 	}
 	
 	@Override
 	public void vote() throws IOException {
 		console.run();
+	}
+	
+	public void showHelp(){
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp("VotingSystem", options);
+	}
+	
+	public CommandLine parse(String[] args) throws ParseException {
+		return parser.parse(options, args);
 	}
 }

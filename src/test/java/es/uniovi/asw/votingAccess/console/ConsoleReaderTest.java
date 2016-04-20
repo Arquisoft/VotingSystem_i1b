@@ -1,0 +1,14 @@
+package es.uniovi.asw.votingAccess.console;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class ConsoleReaderTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

@@ -28,7 +28,11 @@ public class ConsoleReader {
 			this.initialActions.add(new QuitAction());
 		}
 	}
-
+	
+	public void setWriter(PrintStream writer){
+		this.writer = writer;
+	}
+	
 	/**
 	 * Shows the different available services, asks the user for the service he/she selects
 	 * and then executes that service. 
