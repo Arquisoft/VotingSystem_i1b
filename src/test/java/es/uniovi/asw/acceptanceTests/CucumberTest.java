@@ -1,4 +1,4 @@
-package es.uniovi.asw.ejemplo;
+package es.uniovi.asw.acceptanceTests;
 
 import org.junit.runner.RunWith;
 
