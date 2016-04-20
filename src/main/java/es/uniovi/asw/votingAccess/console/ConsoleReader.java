@@ -2,6 +2,7 @@ package es.uniovi.asw.votingAccess.console;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -23,14 +24,18 @@ public class ConsoleReader {
 	private List<Action> initialActions = new ArrayList<Action>();
 	
 	public ConsoleReader(Action... initialActions) {
+		this.initialActions.add(new QuitAction());
 		for(Action action : initialActions){
 			this.initialActions.add(action);
-			this.initialActions.add(new QuitAction());
 		}
 	}
 	
 	public void setWriter(PrintStream writer){
 		this.writer = writer;
+	}
+	
+	public void setInputStream(InputStream reader) {
+		this.reader = new BufferedReader(new InputStreamReader(reader));
 	}
 	
 	/**
