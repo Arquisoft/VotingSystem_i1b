@@ -20,12 +20,12 @@ public class SubmitVoteAction extends DefaultAction {
         writer.println("1. Yes");
         writer.println("2. No");
         voteOption = reader.readLine();
-        if(voteOption == "1"){
-            new AddVote().addVote("Yes");
+        if(voteOption.equals("1")){
+            new AddVote().addVote("Y");
             writer.println("Vote added");
         }
-        else if(voteOption == "2"){
-            new AddVote().addVote("No");
+        else if(voteOption.equals("2")){
+            new AddVote().addVote("N");
             writer.println("Vote added");
         }
         else{

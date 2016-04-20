@@ -15,13 +15,6 @@ Feature: A voter logs in and votes electronically
 	When the voter introduces a wrong password
 	Then the program shows the error to the voter
 	
-	Scenario: The password and NID introduced by the voter is correct
-	Given the user exists
-	And it is registered for voting
-	And it has not voted yet
-	When the voter introduces the correct NIF and password
-	Then the user is logged in
-	
 	Scenario: The user logs in and successfully submits a vote
 	Given the user has already logged in
 	When the user submits his vote
