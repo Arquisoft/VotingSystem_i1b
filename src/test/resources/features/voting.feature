@@ -10,7 +10,14 @@ Feature: A voter logs in and votes electronically
 	When the voter inputs his NIF and password
 	Then the application tells the voter he is not registered
 	
-	Scenario: The password introduced by the voter is correct
+	Scenario: The password introduced by the voter is wrong
 	Given the NIF introduced by the voter exists
 	When the voter introduces a wrong password
 	Then the program shows the error to the voter
+	
+	Scenario: The password and NID introduced by the voter is correct
+	Given the user exists
+	And it is registered for voting
+	And it has not voted yet
+	When the voter introduces the correct NIF and password
+	Then the user is logged in

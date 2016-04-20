@@ -12,13 +12,12 @@ import ch.qos.logback.core.joran.spi.ActionException;
 import ch.qos.logback.core.joran.spi.InterpretationContext;
 import es.uniovi.asw.votingAccess.business.RegisterEVoter;
 
-public class RegisterEVoterAction implements Action {
+public class RegisterEVoterAction extends DefaultAction {
 
 	public RegisterEVoterAction() {
-		//setNextActions(this, new LogInAndVoteAction());
+		setNextActions(this, new LogInAndVoteAction());
 	}
 	
-	//TODO: Use extends DefaultAction instead of implements action
 
 	public Object askUser(BufferedReader reader,
 			PrintStream writer, PrintStream errorWriter) throws Exception {
@@ -38,13 +37,6 @@ public class RegisterEVoterAction implements Action {
 
 	private boolean correctNIF(String nif) {
 		return nif != null && !nif.isEmpty();
-	}
-
-
-	@Override
-	public List<Action> getNextActions() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

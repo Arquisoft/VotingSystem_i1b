@@ -11,7 +11,7 @@ import es.uniovi.asw.votingAccess.business.LogInEVoter;
 import es.uniovi.asw.votingAccess.console.Action;
 import es.uniovi.asw.votingAccess.exception.BusinessException;
 
-public class LogInAndVoteAction implements Action {
+public class LogInAndVoteAction extends DefaultAction {
 
 	
 	private Voter logIn(BufferedReader reader,

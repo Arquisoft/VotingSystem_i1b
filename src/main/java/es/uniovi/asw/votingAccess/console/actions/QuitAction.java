@@ -6,7 +6,7 @@ import java.util.List;
 
 import es.uniovi.asw.votingAccess.console.Action;
 
-public class QuitAction implements Action{
+public class QuitAction extends DefaultAction {
 
 	@Override
 	public String getOrder() {

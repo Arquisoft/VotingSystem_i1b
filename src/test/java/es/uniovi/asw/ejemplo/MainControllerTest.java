@@ -43,6 +43,7 @@ public class MainControllerTest {
 
   private MockMvc mvc;
   private Exception exceptionThrown;
+  private Object aux;
 
   @Before
   public void setUp() throws Exception {
@@ -250,6 +251,47 @@ public class MainControllerTest {
       org.junit.Assert.assertTrue(
     		  exceptionThrown.getMessage().contains("password is incorrect"));
       DatabaseTestHelper.deleteVoters();
+  }
+  
+  
+  
+  
+  @Given("^the user exists$")
+  public void the_user_exists() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+	  JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
+	  DatabaseTestHelper.deleteVoters();
+	  insertExampleVoters();
+	  org.junit.Assert.assertNotNull(DatabaseTestHelper.findVoter("81380579U"));
+  }
+
+  @Given("^it is registered for voting$")
+  public void it_is_registered_for_voting() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      org.junit.Assert.assertTrue(
+    		  DatabaseTestHelper.findVoter("81380579U").isEVoter());
+  }
+
+  @Given("^it has not voted yet$")
+  public void it_has_not_voted_yet() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      org.junit.Assert.assertFalse(
+    		  DatabaseTestHelper.findVoter("81380579U").getHasVoted());
+  }
+
+  @When("^the voter introduces the correct NIF and password$")
+  public void the_voter_introduces_the_correct_NIF_and_password() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      aux = new LogInEVoter().logInEVoter("81380579U", "soyPerico");
+  }
+
+  @Then("^the user is logged in$")
+  public void the_user_is_logged_in() throws Throwable {
+      // Write code here that turns the phrase above into concrete actions
+      Voter logged = (Voter) aux;
+      org.junit.Assert.assertEquals("Perico", logged.getName());
+      org.junit.Assert.assertEquals("81380579U", logged.getNif());
+      org.junit.Assert.assertEquals("perico@uniovi.es", logged.getEmail());
   }
 
 }
