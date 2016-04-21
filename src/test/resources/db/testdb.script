@@ -9,3 +9,4 @@ SET SCHEMA PUBLIC
 INSERT INTO VOTANTES VALUES('Alberto','55824978L','alberto@uniovi.es',2,'albertoPassword',FALSE,FALSE)
 INSERT INTO VOTANTES VALUES('Pepe','58584762G','pepe@uniovi.es',2,'passwordPEPE',FALSE,FALSE)
 INSERT INTO VOTANTES VALUES('Perico','81380579U','perico@uniovi.es',1,'soyPerico',FALSE,TRUE)
+INSERT INTO VOTANTES VALUES('Test voter 1','TEST1','voter1@test.com',1,'password1',TRUE,FALSE)
