@@ -35,7 +35,7 @@ public class ElectoralBoardModeTest {
 
     private static void fillDB() throws SQLException {
         JdbcHelper.setConnectionConfig(DatabaseTestHelper.DB_CONFIG_FILE);
-        voter1 = new Voter("TEST2", "Test voter 1", "voter1@test.com", 1, "password1", false, false);
+        voter1 = new Voter("Prueba", "Test voter 1", "voter1@test.com", 1, "password1", false, false);
         DatabaseTestHelper.insertVoter(voter1);
     }
 
