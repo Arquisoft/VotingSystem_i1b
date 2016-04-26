@@ -10,7 +10,7 @@ public class ElectoralBoardMode implements VotingMode {
 
 	@Override
 	public ConsoleReader setUpConsole(Object[] params) {
-		int boardCode = (int)params[0];
+		int boardCode = new Integer((String)params[0]);
 		
 		Action markVoter = new MarkVoterAction(boardCode);
 		Action submitVote = new SubmitVoteAction();

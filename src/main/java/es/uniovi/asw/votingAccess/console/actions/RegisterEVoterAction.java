@@ -5,6 +5,7 @@ import java.io.PrintStream;
 
 import es.uniovi.asw.DBUpdate.modelo.Voter;
 import es.uniovi.asw.votingAccess.business.RegisterEVoter;
+import es.uniovi.asw.votingAccess.exception.BusinessException;
 
 public class RegisterEVoterAction extends DefaultAction {
 
@@ -21,11 +22,17 @@ public class RegisterEVoterAction extends DefaultAction {
 				writer.println("Please, re-enter NIF");
 			}
 		}
+		
+		Voter v = null;
 
-		voter = new RegisterEVoter().registerEVoter(nif);
+		try {
+			v = new RegisterEVoter().registerEVoter(nif);
+		} catch(BusinessException b) {
+			writer.println(b.getMessage());
+		}
 		writer.println("New e-voter registered");
 		
-		return voter;
+		return v;
 	}
 
 
