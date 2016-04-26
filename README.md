@@ -15,6 +15,6 @@
 # How to execute the project
 
 1. _mvn package_
-2. _java -cp target/VotingSystem-0.0.1.jar [argument]_  
-  To execute the Electoral Board module use argument: _-b <electoral board code>_  
-  To execute the e-voting module use argument: _-e_
+2. _java -cp target/VotingSystem-0.0.1.jar [**argument**]_  
+  To execute the Electoral Board module use **argument**: _-b &lt;electoral board code&gt;_  
+  To execute the e-voting module use **argument**: _-e_
