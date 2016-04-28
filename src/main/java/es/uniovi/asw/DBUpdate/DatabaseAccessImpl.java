@@ -19,6 +19,7 @@ public class DatabaseAccessImpl implements DatabaseAccess {
 			con = JdbcHelper.getConnection();
 			ps = con.prepareStatement(JdbcHelper.getQueries().getProperty("INSERT_VOTE"));
 			ps.setString(1, vote.getOption());
+			ps.setLong(2, 1);
 			ps.executeUpdate();
 			return vote;
 		} finally {
