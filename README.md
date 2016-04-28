@@ -18,3 +18,9 @@
 2. _java -cp target/VotingSystem-0.0.1.jar [**argument**]_  
   To execute the Electoral Board module use **argument**: _-b &lt;electoral board code&gt;_  
   To execute the e-voting module use **argument**: _-e_
+
+There are 3 voters available, all belonging to the Electoral Board 1.
+Their NIF's are:
+- 'test1' (e-voter)
+- 'test2' (e-voter)
+- 'test3'
